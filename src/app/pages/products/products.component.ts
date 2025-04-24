@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { IProduct } from '../../models/iproduct';
 import { StaticProductService } from '../../services/static-product.service';
 
@@ -11,7 +11,10 @@ import { StaticProductService } from '../../services/static-product.service';
 })
 export class ProductsComponent implements OnInit {
   products!: IProduct[];
-  constructor(private productsService: StaticProductService) {}
+  constructor(
+    private productsService: StaticProductService,
+    private activatedRoute: ActivatedRoute
+  ) {}
   ngOnInit(): void {
     this.products = this.productsService.getAllProducts();
   }

@@ -56,4 +56,14 @@ export class StaticProductService {
   getProductByID(id: number): IProduct {
     return this.products[id];
   }
+  // // edit product
+  // editProduct(product: IProduct): void {
+  //   this.products.forEach((item) => {
+  //     if (product.id === item.id) {
+  //       console.log('product from services', product);
+  //       console.log('product id from services', product.id);
+  //       item = product;
+  //     }
+  //   });
+  // }
 }

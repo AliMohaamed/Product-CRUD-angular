@@ -1,59 +1,65 @@
-# RouteServiceInjection
+# Product-CRUD-angular
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.8.
+A simple Angular application for managing a list of products with full CRUD functionality. Users can add new products, delete them, and view detailed product info. The app is built using Angular's modular architecture with routing and services.
 
-## Development server
+![alt text](./public/sc.png)
 
-To start a local development server, run:
+## Features
 
-```bash
-ng serve
-```
+- Add new products
+- Edit product details (soon)
+- Delete products
+- View a specific product
+- Filter by size or category
+- Clean, modern UI
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Technologies Used
 
-## Code scaffolding
+- **Angular**: Frontend framework
+- **Angular Router**: For client-side navigation
+- **Angular Services**: For shared data and HTTP logic
+- **Reactive Forms**: For managing form inputs and validations
+- **TypeScript**: Strongly-typed JavaScript
+- **CSS & Bootstrap**: Styling the UI
+- **Bootstrap Icons**: For intuitive action icons
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Project Structure Highlights
 
-```bash
-ng generate component component-name
-```
+- `src/app/services`: Contains product service for managing logic
+- `src/app/routes`: Application routing setup
+- `src/app/components`: UI components (Product Table, Form, etc.)
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## 🛠️ How to Run
 
-```bash
-ng generate --help
-```
+1. Clone the repository:
 
-## Building
+   ```bash
+   git clone https://github.com/your-username/product-crud-angular.git
 
-To build the project run:
+   ```
 
-```bash
-ng build
-```
+2. Navigate to the project folder:
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+   ```bash
+   cd product-crud-angular
 
-## Running unit tests
+   ```
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+3. Install dependencies:
 
-```bash
-ng test
-```
+   ```bash
+   npm install
 
-## Running end-to-end tests
+   ```
 
-For end-to-end (e2e) testing, run:
+4. Run the app:
 
-```bash
-ng e2e
-```
+   ```bash
+   npm start
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+   ```
 
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+5. Open in browser:
+   ```bash
+   http://localhost:4200
+   ```
