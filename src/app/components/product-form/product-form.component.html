@@ -3,7 +3,7 @@
   <div class="form-header">Product</div>
 
   <!-- Form -->
-  <form [formGroup]="productForm" (submit)="addProduct($event)">
+  <form [formGroup]="productForm" (submit)="productHandler($event)">
     <!-- Product Name -->
     <div class="form-group">
       <label for="productName" class="form-label">Product Name</label>
@@ -77,7 +77,9 @@
 
     <!-- Add Button -->
     <div class="d-flex justify-content-center">
-      <button type="submit" class="btn btn-add">Submit Product</button>
+      <button type="submit" class="btn btn-add">
+        {{ productId == 0 ? "Add" : "Edit" }} Product
+      </button>
     </div>
   </form>
 </div>

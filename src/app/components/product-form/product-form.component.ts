@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { IProduct } from '../../models/iproduct';
 import { StaticProductService } from '../../services/static-product.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-form',
@@ -19,12 +19,15 @@ export class ProductFormComponent implements OnInit {
   sendProducts = output<IProduct[]>();
   checkAllDataValid = false;
   products!: IProduct[];
+  productId: any;
   constructor(
     private productService: StaticProductService,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) {}
   ngOnInit(): void {
     this.products = this.productService.getAllProducts();
+    this.productId = this.activatedRoute.snapshot.paramMap.get('id');
   }
 
   productForm = new FormGroup({
@@ -49,7 +52,7 @@ export class ProductFormComponent implements OnInit {
     return this.productForm.controls['quantity'];
   }
   // add product
-  addProduct(e: Event) {
+  productHandler(e: Event) {
     e.preventDefault();
     this.checkAllDataValid = this.productForm.valid;
 
@@ -66,7 +69,12 @@ export class ProductFormComponent implements OnInit {
         (item) => item?.name === product.name
       );
       if (!existProduct) {
-        this.productService.addProduct(product);
+        if (this.productId == 0) {
+          this.productService.addProduct(product);
+        } else {
+          // edit
+          this.productService.editProduct(this.productId, product);
+        }
         this.router.navigate(['./products']);
       } else {
         this.checkAllDataValid = false;

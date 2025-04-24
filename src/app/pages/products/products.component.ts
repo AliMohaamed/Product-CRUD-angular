@@ -22,4 +22,8 @@ export class ProductsComponent implements OnInit {
     this.productsService.deleteProduct(id);
     this.products = this.productsService.getAllProducts();
   }
+  editHandle(id: number, product: IProduct) {
+    this.productsService.editProduct(id, product);
+    this.products = this.productsService.getAllProducts();
+  }
 }
