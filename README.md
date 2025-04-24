@@ -7,10 +7,9 @@ A simple Angular application for managing a list of products with full CRUD func
 ## Features
 
 - Add new products
-- Edit product details (soon)
+- Edit product details
 - Delete products
 - View a specific product
-- Filter by size or category
 - Clean, modern UI
 
 ## Technologies Used
