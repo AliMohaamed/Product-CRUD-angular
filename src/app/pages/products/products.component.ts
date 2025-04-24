@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { IProduct } from '../../models/iproduct';
-import { StaticProductService } from '../../services/static-product.service';
+// import { StaticProductService } from '../../services/static-product.service';
+import { ProductAPIService } from '../../services/product-api.service';
 
 @Component({
   selector: 'app-products',
@@ -12,18 +13,24 @@ import { StaticProductService } from '../../services/static-product.service';
 export class ProductsComponent implements OnInit {
   products!: IProduct[];
   constructor(
-    private productsService: StaticProductService,
+    private productsService: ProductAPIService,
     private activatedRoute: ActivatedRoute
   ) {}
   ngOnInit(): void {
-    this.products = this.productsService.getAllProducts();
+    this.productsService.getAllProducts().subscribe({
+      next: (response) => {
+        this.products = response;
+      },
+      error: (error) => console.log('Error', error),
+    });
   }
-  deleteProduct(id: number) {
-    this.productsService.deleteProduct(id);
-    this.products = this.productsService.getAllProducts();
-  }
-  editHandle(id: number, product: IProduct) {
-    this.productsService.editProduct(id, product);
-    this.products = this.productsService.getAllProducts();
+  deleteHandler(productId: string) {
+    this.productsService.deleteProduct(productId).subscribe({
+      next: () => {
+        this.products = this.products.filter(
+          (product) => product.id !== productId
+        );
+      },
+    });
   }
 }

@@ -6,8 +6,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { IProduct } from '../../models/iproduct';
-import { StaticProductService } from '../../services/static-product.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ProductAPIService } from '../../services/product-api.service';
 
 @Component({
   selector: 'app-product-form',
@@ -21,20 +21,35 @@ export class ProductFormComponent implements OnInit {
   products!: IProduct[];
   productId: any;
   constructor(
-    private productService: StaticProductService,
+    private productService: ProductAPIService,
     private router: Router,
     private activatedRoute: ActivatedRoute
   ) {}
   ngOnInit(): void {
-    this.products = this.productService.getAllProducts();
-    this.productId = this.activatedRoute.snapshot.paramMap.get('id');
+    this.activatedRoute.params.subscribe({
+      next: (params) => {
+        this.productId = params['id'];
+        this.getName.setValue('');
+        this.getPrice.setValue('');
+        this.getQuantity.setValue('');
+      },
+    });
+    if (this.productId != 0) {
+      this.productService.getProductById(this.productId).subscribe({
+        next: (res) => {
+          this.getName.setValue(res.name);
+          this.getPrice.setValue(res.price.toString());
+          this.getQuantity.setValue(res.quantity.toString());
+        },
+      });
+    }
   }
 
   productForm = new FormGroup({
     name: new FormControl('', [
       Validators.required,
       Validators.minLength(2),
-      Validators.pattern('^[A-Za-zs-]{2,50}$'),
+      Validators.pattern('^[A-Za-z\\s-]{2,50}$'),
     ]),
     price: new FormControl('', [Validators.required, Validators.min(10)]),
     quantity: new FormControl('', [Validators.required, Validators.min(1)]),
@@ -56,28 +71,22 @@ export class ProductFormComponent implements OnInit {
     e.preventDefault();
     this.checkAllDataValid = this.productForm.valid;
 
-    if (this.productForm.valid) {
-      const product = {
-        id: this.products[this.products.length - 1]?.id
-          ? this.products[this.products.length - 1]?.id + 1
-          : 1,
-        name: this.productForm.value.name!,
-        price: Number(this.productForm.value.price!),
-        quantity: Number(this.productForm.value.quantity!),
-      };
-      const existProduct = this.products.find(
-        (item) => item?.name === product.name
-      );
-      if (!existProduct) {
-        if (this.productId == 0) {
-          this.productService.addProduct(product);
-        } else {
-          // edit
-          this.productService.editProduct(this.productId, product);
-        }
-        this.router.navigate(['./products']);
+    if (this.productForm.status == 'VALID') {
+      if (this.productId == 0) {
+        console.log('DONE');
+        // add product
+        this.productService.addProduct(this.productForm.value).subscribe({
+          next: (res) => this.router.navigate(['./products']),
+          error: (err) => console.log(err),
+        });
       } else {
-        this.checkAllDataValid = false;
+        // edit
+        this.productService
+          .editProduct(this.productId, this.productForm.value)
+          .subscribe({
+            next: (res) => this.router.navigate(['./products']),
+            error: (err) => console.log(err),
+          });
       }
     } else {
       console.warn('Form is invalid!');

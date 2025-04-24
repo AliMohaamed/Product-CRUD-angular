@@ -55,10 +55,9 @@
             <i
               [routerLink]="['/products', product.id, 'edit']"
               class="bi bi-pencil-square"
-              (click)="editHandle(product.id, product)"
             ></i>
             <i class="bi bi-eye" [routerLink]="['/products', product.id]"></i>
-            <i class="bi bi-trash" (click)="deleteProduct(product.id)"></i>
+            <i class="bi bi-trash" (click)="deleteHandler(product.id)"></i>
           </td>
         </tr>
         }

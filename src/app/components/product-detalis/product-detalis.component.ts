@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { IProduct } from '../../models/iproduct';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { StaticProductService } from '../../services/static-product.service';
+// import { StaticProductService } from '../../services/static-product.service';
+import { ProductAPIService } from '../../services/product-api.service';
 
 @Component({
   selector: 'app-product-detalis',
@@ -11,13 +12,16 @@ import { StaticProductService } from '../../services/static-product.service';
 })
 export class ProductDetalisComponent implements OnInit {
   product!: IProduct;
-  productId!: number;
+  productId!: any;
   constructor(
-    private productServices: StaticProductService,
+    private productServices: ProductAPIService,
     private activatedRoute: ActivatedRoute
   ) {}
   ngOnInit(): void {
-    this.productId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
-    this.product = this.productServices.getProductByID(this.productId - 1);
+    this.productId = this.activatedRoute.snapshot.paramMap.get('id');
+    this.productServices.getProductById(this.productId).subscribe({
+      next: (res) => (this.product = res),
+      error: (err) => console.log(err),
+    });
   }
 }
