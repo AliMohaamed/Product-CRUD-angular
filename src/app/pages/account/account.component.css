@@ -1,0 +1,25 @@
+.container {
+  background: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  max-width: 900px;
+  width: 100%;
+}
+.header {
+  font-size: 24px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 20px;
+}
+.info-text {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+}
+.info-link {
+  font-size: 14px;
+  color: #007bff;
+  text-decoration: none;
+}

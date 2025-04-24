@@ -1,0 +1,30 @@
+<div class="container">
+  <!-- Header -->
+  <div class="header">Product Details <span class="badge">1</span></div>
+
+  <!-- Product Info -->
+  <div class="product-info"><span>Product ID:</span> {{ product.id }}</div>
+  <div class="product-info"><span>Product Name:</span> {{ product.name }}</div>
+  <div class="product-info">
+    <span>Product Price:</span> {{ product.price }}
+  </div>
+  <div class="product-info">
+    <span>Product Quantity:</span> {{ product.quantity }}
+  </div>
+
+  <!-- Rating -->
+  <div class="rating mt-4">
+    <i class="bi bi-star-fill"></i>
+    <i class="bi bi-star-fill"></i>
+    <i class="bi bi-star-fill"></i>
+    <i class="bi bi-star-fill"></i>
+    <i class="bi bi-star-fill"></i>
+  </div>
+
+  <!-- Back Button -->
+  <div class="d-flex justify-content-center">
+    <button class="btn btn-back" [routerLink]="['/products']">
+      Back to Products
+    </button>
+  </div>
+</div>
